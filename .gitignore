@@ -20,3 +20,9 @@
 
 # Ignore ruby-version
 /.ruby-version
+
+# Ignore node-version
+/.node-version
+
+# Ignore node-version
+/.env
