@@ -23,7 +23,6 @@ class GajoenApi
     req['Authorization'] = "Bearer #{ENV['GAJOEN_HEADER']}"
     req['X-Giftee'] = 1
     req.set_form_data(@query)
-    p @query
     res = http.request(req)
     JSON.parse(res.body)
   end

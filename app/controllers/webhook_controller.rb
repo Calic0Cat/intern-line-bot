@@ -22,7 +22,7 @@ class WebhookController < ApplicationController
     events.each { |event|
       case event
       when Line::Bot::Event::Follow
-        gajoen_API = GajoenApi::GetItem::Request.new(145,56509)
+        gajoen_API = GajoenApi.new(145,56509)
         response = gajoen_API.request
         message = {
           type: 'text',
