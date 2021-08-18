@@ -22,9 +22,14 @@ class WebhookController < ApplicationController
     events.each { |event|
       case event
       when Line::Bot::Event::Follow
+        gajoen_API = GAJOEN_API::GetItem::Request.new(145)
+        response = gajoen_API.request
         message = {
           type: 'text',
-          text: '登録ありがとう！'
+          text: "登録ありがとう！
+          お礼にクーポンを送ります！
+          #{response['url']}
+          "
         }
         client.reply_message(event['replyToken'], message)
       when Line::Bot::Event::Message
@@ -32,7 +37,7 @@ class WebhookController < ApplicationController
         when Line::Bot::Event::MessageType::Text
           message = {
             type: 'text',
-            text: event.message['text']
+            text: 'test'
           }
           client.reply_message(event['replyToken'], message)
         when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
