@@ -23,6 +23,7 @@ class WebhookController < ApplicationController
       case event
       when Line::Bot::Event::Follow
         response = GajoenApi.create_tickets(brand_id: 145, item_id: 56509)
+        User.create(line_id: event['source']['userId'])
         if response != nil then
           message = {
             type: 'text',
@@ -35,6 +36,9 @@ class WebhookController < ApplicationController
           }        
         end
         client.reply_message(event['replyToken'], message)
+      when Line::Bot::Event::Unfollow
+        user = User.find_by(line_id: event['source']['userId'])
+        user.destroy!
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
