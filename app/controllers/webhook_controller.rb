@@ -24,7 +24,7 @@ class WebhookController < ApplicationController
       when Line::Bot::Event::Follow
         response = GajoenApi.create_tickets(brand_id: 145, item_id: 56509)
         begin
-          user = User.find_or_create_by!(line_id: event['source']['userId'], block_status: false)
+          user = User.find_or_create_by!(line_id: event['source']['userId'])
         rescue => e
           p e
         end
