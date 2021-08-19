@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_054816) do
     t.string "sex"
     t.integer "age"
     t.string "like"
-    t.boolean "block_status", default: false
+    t.boolean "enable", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

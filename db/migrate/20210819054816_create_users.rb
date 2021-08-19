@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :sex
       t.integer :age
       t.string :like
-      t.boolean :block_status, :default => false
+      t.boolean :enable, :default => true
 
       t.timestamps
     end
