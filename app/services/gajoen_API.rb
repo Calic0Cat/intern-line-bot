@@ -23,7 +23,7 @@ class GajoenApi
     when Net::HTTPSuccess
       JSON.parse(res.body) 
     else
-      nil
+      raise 'チケット発行に失敗しました。'
     end
   end
 end
