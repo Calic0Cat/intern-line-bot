@@ -22,12 +22,18 @@ class WebhookController < ApplicationController
     events.each { |event|
       case event
       when Line::Bot::Event::Follow
-        gajoen_API = GajoenApi.new(145,56509)
-        response = gajoen_API.request
-        message = {
-          type: 'text',
-          text: "友だち追加ありがとうございます!\nPlanet CafeのLINE公式アカウントで、お気に入りのコーヒーとフードを見つけてみませんか。\n感謝の気持ちを込めてクーポンを送ります!\n是非お使いください!#{response['url']}"
-        }
+        response = GajoenApi.create_tickets(brand_id: 145, item_id: 56509)
+        if response != nil then
+          message = {
+            type: 'text',
+            text: "友だち追加ありがとうございます!\nPlanet CafeのLINE公式アカウントで、お気に入りのコーヒーとフードを見つけてみませんか。\n感謝の気持ちを込めてクーポンを送ります!\n是非お使いください!#{response['url']}"
+          }
+        else
+          message = {
+            type: 'text',
+            text: "友だち追加ありがとうございます!\nPlanet CafeのLINE公式アカウントで、お気に入りのコーヒーとフードを見つけてみませんか。"
+          }        
+        end
         client.reply_message(event['replyToken'], message)
       when Line::Bot::Event::Message
         case event.type
