@@ -23,18 +23,15 @@ class WebhookController < ApplicationController
       case event
       when Line::Bot::Event::Follow
         user = User.find_or_create_by!(line_id: event['source']['userId'])
+        message = {
+          type: 'text',
+          text: "友だち追加ありがとうございます!\nPlanet CafeのLINE公式アカウントで、お気に入りのコーヒーとフードを見つけてみませんか。"
+        }       
         if user.enable
           response = GajoenApi.create_tickets(brand_id: 145, item_id: 56509)
-          message = {
-            type: 'text',
-            text: "友だち追加ありがとうございます!\nPlanet CafeのLINE公式アカウントで、お気に入りのコーヒーとフードを見つけてみませんか。\n感謝の気持ちを込めてクーポンを送ります!\n是非お使いください!#{response['url']}"
-          }
+          message[:text] = message[:text] + "\n感謝の気持ちを込めてクーポンを送ります!\n是非お使いください!#{response['url']}"
         else
           user.update!({enable: true})
-          message = {
-            type: 'text',
-            text: "友だち追加ありがとうございます!\nPlanet CafeのLINE公式アカウントで、お気に入りのコーヒーとフードを見つけてみませんか。"
-          }        
         end
         client.reply_message(event['replyToken'], message)
       when Line::Bot::Event::Unfollow
