@@ -22,7 +22,9 @@ class WebhookController < ApplicationController
           text: "友だち追加ありがとうございます!\nPlanet CafeのLINE公式アカウントで、お気に入りのコーヒーとフードを見つけてみませんか。"
         }       
         if user.enable
-          response = GajoenApi.create_tickets(brand_id: 145, item_id: 56509)
+          request_code = SecureRandom.urlsafe_base64(30)
+          response = GajoenApi.create_tickets(brand_id: 145, item_id: 56509, request_code: request_code)
+          Coupon.create!(user_id: user.id, item_id: response['item_id'], brand_id: response['brand_id'], coupon_url: response['url'], request_code: request_code)
           message[:text] = message[:text] + "\n感謝の気持ちを込めてクーポンを送ります!\n是非お使いください!#{response['url']}"
         else
           user.update!({enable: true})

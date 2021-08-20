@@ -3,8 +3,7 @@ require 'uri'
 require 'securerandom'
 
 class GajoenApi
-  def self.create_tickets(brand_id:, item_id:)
-    request_code = SecureRandom.urlsafe_base64(30)
+  def self.create_tickets(brand_id:, item_id:, request_code:)
     query={
       "item_id"=>item_id,
       "request_code"=>request_code
@@ -21,9 +20,7 @@ class GajoenApi
     res = http.request(req)
     case res
     when Net::HTTPSuccess
-      response = JSON.parse(res.body)
-      response['request_code'] = request_code
-      response
+      JSON.parse(res.body)
     else
       raise 'チケット発行に失敗しました。'
     end
