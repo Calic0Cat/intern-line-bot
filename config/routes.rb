@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   # for LINE webhook
   post '/callback' => 'webhook#callback'
   post '/create' => 'coupons#create'
+  get '/index' => 'coupons#index'
 end

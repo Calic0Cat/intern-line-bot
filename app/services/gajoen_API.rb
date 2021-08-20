@@ -21,7 +21,9 @@ class GajoenApi
     res = http.request(req)
     case res
     when Net::HTTPSuccess
-      JSON.parse(res.body) 
+      response = JSON.parse(res.body)
+      response['request_code'] = request_code
+      response
     else
       raise 'チケット発行に失敗しました。'
     end
