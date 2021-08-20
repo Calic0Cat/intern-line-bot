@@ -1,0 +1,21 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>内容</th>
+      <th>時間</th>
+      <th>ユーザID</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @coupons.each do |coupon| %>
+      <tr>
+        <td>コーヒー50円引き</td>
+        <td><%= Time.at(coupon.created_at) %></td>
+        <td><%= coupon.user_id %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
