@@ -9,5 +9,7 @@ class CreateCoupons < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+    add_index :coupons, :request_code, :unique => true
+    add_index :coupons, :coupon_url, :unique => true
   end
 end

@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 2021_08_20_023527) do
     t.string "coupon_url", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["coupon_url"], name: "index_coupons_on_coupon_url", unique: true
+    t.index ["request_code"], name: "index_coupons_on_request_code", unique: true
     t.index ["user_id"], name: "index_coupons_on_user_id"
   end
 
@@ -35,6 +37,7 @@ ActiveRecord::Schema.define(version: 2021_08_20_023527) do
     t.boolean "enable", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["line_id"], name: "index_users_on_line_id", unique: true
   end
 
   create_table "widgets", force: :cascade do |t|
