@@ -2,11 +2,7 @@ class CouponsController < ApplicationController
   include LineConcern
   # GET /welcome
   def index
-    coupons = Coupon.all()
-    flash[:notice] = ''
-    coupons.each do |coupon|
-      flash[:notice] << "内容: コーヒー50円引き, 日時: #{Time.at(coupon.created_at)}, ユーザ:#{coupon.user_id}\n"
-   end
+    @coupons = Coupon.all
   end
 
   def create
